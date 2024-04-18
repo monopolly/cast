@@ -64,7 +64,7 @@ func String(i interface{}) string {
 	}
 }
 
-//uint8
+// uint8
 func Byte(i interface{}) byte {
 	switch s := i.(type) {
 	case byte:
@@ -138,6 +138,20 @@ func MapStringInt(i interface{}) map[string]int {
 	default:
 		Map(i, func(k, v interface{}) {
 			m[String(k)] = Int(v)
+		})
+		return m
+	}
+}
+
+// ToStringMapE casts an empty interface to a map[string]interface{}.
+func MapStringFloats(i interface{}) map[string]float64 {
+	var m = make(map[string]float64)
+	switch v := i.(type) {
+	case map[string]float64:
+		return v
+	default:
+		Map(i, func(k, v interface{}) {
+			m[String(k)] = Float(v)
 		})
 		return m
 	}
