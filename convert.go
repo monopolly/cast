@@ -114,6 +114,7 @@ func Supported(types string) (err error) {
 	case "float64":
 	case "string":
 	case "[]byte":
+	case "byte":
 	case "bool":
 	case "map[string]any":
 	case "map[string]string":
