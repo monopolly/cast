@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-func SliceInterface(i any) []any {
+func SliceAny(i any) []any {
 	v, _ := ToSliceE(i)
 	return v
 }

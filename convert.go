@@ -73,8 +73,65 @@ func Convert(to, from any) (err error) {
 	case map[int]string:
 		set(to, MapIntString(from))
 	case map[int]any:
-		to = MapIntAny(from)
-		set(to, MapIntString(from))
+		set(to, MapIntAny(from))
+
+	case []int:
+		set(to, SliceInt(from))
+	case []string:
+		set(to, SliceString(from))
+	case []any:
+		set(to, SliceAny(from))
+
+	case any:
+		set(to, from)
+
+	default:
+		return fmt.Errorf("type is not supported")
+	}
+
+	return
+}
+
+// "to" must be pointer to type
+func Supported(to any) (err error) {
+	if to == nil {
+		return fmt.Errorf("to is nil")
+	}
+
+	toinderected := indirect(to)
+
+	// type
+	switch toinderected.(type) {
+
+	// int
+	case int:
+	case int8:
+	case int16:
+	case int32:
+	case int64:
+	case uint:
+	case uint8:
+	case uint16:
+	case uint32:
+	case uint64:
+	case float32:
+	case float64:
+	case string:
+	case []byte:
+	case bool:
+	case map[string]any:
+	case map[string]string:
+	case map[string]int:
+	case map[string]bool:
+	case map[string][]byte:
+	case map[int]int:
+	case map[int]bool:
+	case map[int]string:
+	case map[int]any:
+	case []int:
+	case []string:
+	case []any:
+	case any:
 	default:
 		return fmt.Errorf("type is not supported")
 	}
