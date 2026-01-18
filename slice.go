@@ -71,6 +71,11 @@ func SliceInt64(i any) []int64 {
 	return v
 }
 
+func SliceFloat(i any) []float64 {
+	v, _ := ToFloatSliceE(i)
+	return v
+}
+
 func SliceUint8(i any) (res []uint8) {
 	v, _ := ToInt64SliceE(i)
 	if len(v) == 0 {
@@ -250,5 +255,35 @@ func ToInt64SliceE(i any) ([]int64, error) {
 		return a, nil
 	default:
 		return []int64{}, fmt.Errorf("Unable to Cast %#v to []int", i)
+	}
+}
+
+// ToIntSliceE casts an empty interface to a []int.
+func ToFloatSliceE(i any) ([]float64, error) {
+
+	if i == nil {
+		return []float64{}, fmt.Errorf("Unable to Cast %#v to []int", i)
+	}
+
+	switch v := i.(type) {
+	case []float64:
+		return v, nil
+	}
+
+	kind := reflect.TypeOf(i).Kind()
+	switch kind {
+	case reflect.Slice, reflect.Array:
+		s := reflect.ValueOf(i)
+		a := make([]float64, s.Len())
+		for j := 0; j < s.Len(); j++ {
+			val, err := ToFloat64E(s.Index(j).Interface())
+			if err != nil {
+				return []float64{}, fmt.Errorf("Unable to Cast %#v to []int", i)
+			}
+			a[j] = val
+		}
+		return a, nil
+	default:
+		return []float64{}, fmt.Errorf("Unable to Cast %#v to []int", i)
 	}
 }

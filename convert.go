@@ -79,6 +79,8 @@ func Convert(to, from any) (err error) {
 		set(to, SliceInt(from))
 	case []string:
 		set(to, SliceString(from))
+	case []float64:
+		set(to, SliceFloat(from))
 	case []any:
 		set(to, SliceAny(from))
 
@@ -128,6 +130,7 @@ func Supported(types string) (err error) {
 	case "[]int":
 	case "[]string":
 	case "[]any":
+	case "[]float64":
 	case "any":
 	default:
 		return fmt.Errorf("type is not supported")
@@ -175,6 +178,7 @@ func Support(to any) (err error) {
 	case []int:
 	case []string:
 	case []any:
+	case []float64:
 	case any:
 	default:
 		return fmt.Errorf("type is not supported")
