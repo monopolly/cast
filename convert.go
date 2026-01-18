@@ -60,6 +60,8 @@ func Convert(to, from any) (err error) {
 		set(to, MapStringString(from))
 	case map[string]int:
 		set(to, MapStringInt(from))
+	case map[string]float64:
+		set(to, MapStringFloats(from))
 	case map[string]bool:
 		set(to, MapStringBool(from))
 	case map[string][]byte:
@@ -123,6 +125,7 @@ func Supported(types string) (err error) {
 	case "map[string]int":
 	case "map[string]bool":
 	case "map[string][]byte":
+	case "map[string]float64":
 	case "map[int]int":
 	case "map[int]bool":
 	case "map[int]string":
@@ -171,6 +174,7 @@ func Support(to any) (err error) {
 	case map[string]int:
 	case map[string]bool:
 	case map[string][]byte:
+	case map[string]float64:
 	case map[int]int:
 	case map[int]bool:
 	case map[int]string:
