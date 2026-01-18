@@ -8,6 +8,7 @@ package cast
 import (
 	"fmt"
 	"reflect"
+	"time"
 )
 
 // "to" must be pointer to type
@@ -52,6 +53,11 @@ func Convert(to, from any) (err error) {
 		set(to, Bytes(from))
 	case bool:
 		set(to, Bool(from))
+
+	case time.Duration:
+		set(to, Duration(from))
+	case time.Time:
+		set(to, Time(from))
 
 	// // maps int
 	case map[string]any:
@@ -120,6 +126,8 @@ func Supported(types string) (err error) {
 	case "[]byte":
 	case "byte":
 	case "bool":
+	case "time.Duration":
+	case "time.Time":
 	case "map[string]any":
 	case "map[string]string":
 	case "map[string]int":
@@ -169,6 +177,8 @@ func Support(to any) (err error) {
 	case string:
 	case []byte:
 	case bool:
+	case time.Duration:
+	case time.Time:
 	case map[string]any:
 	case map[string]string:
 	case map[string]int:
