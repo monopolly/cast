@@ -92,8 +92,51 @@ func Convert(to, from any) (err error) {
 	return
 }
 
-// "to" must be pointer to type
-func Supported(to any) (err error) {
+// check support type name
+func Supported(types string) (err error) {
+	if types == "" {
+		return fmt.Errorf("fail")
+	}
+
+	// type
+	switch types {
+	case "int":
+	case "int8":
+	case "int16":
+	case "int32":
+	case "int64":
+	case "uint":
+	case "uint8":
+	case "uint16":
+	case "uint32":
+	case "uint64":
+	case "float32":
+	case "float64":
+	case "string":
+	case "[]byte":
+	case "bool":
+	case "map[string]any":
+	case "map[string]string":
+	case "map[string]int":
+	case "map[string]bool":
+	case "map[string][]byte":
+	case "map[int]int":
+	case "map[int]bool":
+	case "map[int]string":
+	case "map[int]any":
+	case "[]int":
+	case "[]string":
+	case "[]any":
+	case "any":
+	default:
+		return fmt.Errorf("type is not supported")
+	}
+
+	return
+}
+
+// check type support
+func Support(to any) (err error) {
 	if to == nil {
 		return fmt.Errorf("to is nil")
 	}
